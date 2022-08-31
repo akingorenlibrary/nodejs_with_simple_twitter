@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {{#if directUser}}
+   <title>Twitter Sohbetler</title>
+  {{else}}
+  <title>{{title}}</title>
+  {{/if}}
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+    {{#if writeDirectPage}}
+    <style>
+        #chat-wrap {
+            border: 1% solid:#ccc;
+            border-radius: 5px;
+        }
+
+        #chat-window {
+            height: 400px;
+            overflow-y: scroll;
+
+        }
+    </style>
+    {{/if}}
+    <style>
+        body {
+          background-color: #eee;
+        }
+
+        footer {
+          height: 60px;
+          background-color: blue;
+        }
+        #body {
+          min-height: calc(100vh - 60px);
+        }
+      </style>
+  
+ 
+</head>
+
+<body>
+  {{#if NotFoundPage}}
+  {{{body}}}
+  {{else}}
+  <div id="body">
+    {{> _navbar}}  
+      <div class="container">
+        {{> _flash}}
+      </div>
+    {{{body}}}
+  </div>
+
+  <footer style="margin-top:20px;background-color:#f8f9fa;border: 1px;text-align:center">
+    <p>2022</p>
+    <br>
+  </footer>
+  {{/if}}
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  
+
+  
+  {{#if explorePage}}
+  <script src="/js/exploreaddmore.js"></script>
+  {{/if}} 
+  {{#if newDirectPage}}
+  <script src="/js/newDirectSearch.js"></script>
+  {{/if}}
+  {{#if writeDirectPage}}
+  <script src="/js/socket.io.js"></script>
+  <script src="/js/chat.js"></script>
+  {{/if}}
+  {{#if otherProfilePage}}
+  <script src="/js/otherProfileaddmore.js"></script>
+  {{/if}}
+  {{#if profilePage}}
+  <script src="/js/profileaddmore.js"></script>
+  {{/if}}
+  <script src="/js/buttonBlock.js"></script>
+  <script src="/js/jquery-3.3.1.slim.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>

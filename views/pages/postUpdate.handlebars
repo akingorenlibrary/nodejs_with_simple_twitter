@@ -1,0 +1,33 @@
+<div class="container" style="margin-top:20px">
+    {{#each post}}
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header">Postu Düzenle</div>
+                <div class="card-body">
+                    <form action="/{{username}}/post-update/{{id}}" method="POST">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Metin</label>
+                            <textarea class="form-control" name="metin" rows="3">{{write}}</textarea>
+                        </div>
+                        <button type="submit" id="buttonBlock" class="btn btn-primary">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+     <div class="card">
+        <div class="card-header">
+            Post
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="empty">No content</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

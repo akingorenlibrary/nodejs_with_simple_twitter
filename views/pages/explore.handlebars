@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+            <h3>Keşfet</h3>
+        </div>
+    </div>
+    <hr>
+    {{#each writes}}
+    <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    @{{username}}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        {{metin}}
+                    </blockquote>
+
+                </div>
+                <div style="text-align:right;padding:5px">
+                    {{date}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="card">
+        <div class="card-body">
+                Paylaşılan yazı yok
+        </div>
+    </div>
+    {{/each}}
+
+
+
+    {{#if allpost}}
+    <div id="morepostlistele">
+
+    </div>
+    <div class="row" style="margin-top:20px;text-align:center;margin-bottom:40px" id="buttonrow">
+        <div class="col-md-12">
+            <button type="button" id="addmore" class="btn btn-primary">Daha fazla göster 10/{{allpost}}</button>
+        </div>
+    </div>
+    {{/if}}
+
+</div>

@@ -1,0 +1,36 @@
+   {{#if flashSuccess}}
+   <div class="row" style="margin-top:10px">
+       <div class="col-md-12">
+           <div class="alert alert-success" role="alert">
+               {{flashSuccess}}
+           </div>
+       </div>
+   </div>
+   {{/if}}
+   {{#if flashError}}
+   <div class="row" style="margin-top:10px">
+       <div class="col-md-12">
+           <div class="alert alert-danger" role="alert">
+               {{flashError}}
+           </div>
+       </div>
+   </div>
+   {{/if}}
+   {{#if passportFailure}}
+   <div class="row" style="margin-top:10px">
+       <div class="col-md-12">
+           <div class="alert alert-danger" role="alert">
+               {{passportFailure}}
+           </div>
+       </div>
+   </div>
+   {{/if}}
+   {{#if passportSuccess}}
+   <div class="row" style="margin-top:10px">
+       <div class="col-md-12">
+           <div class="alert alert-success" role="alert">
+               {{passportSuccess}}
+           </div>
+       </div>
+   </div>
+   {{/if}}

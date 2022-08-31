@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Twitter</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        {{#if activeHome}}
+        <a class="nav-link active" href="/">Home</a>
+        {{else}}
+        <a class="nav-link" href="/">Home</a>
+        {{/if}}
+      </li>
+
+      {{#if user}}
+      <li class="nav-item">
+        {{#if activeProfile}}
+        <a class="nav-link active" href="/{{user}}">Profile</a>
+        {{else}}
+        <a class="nav-link" href="/{{user}}">Profile</a>
+        {{/if}}
+      </li>
+
+       <li class="nav-item">
+        {{#if activeMesaj}}
+        <a class="nav-link active" href="/direct">Mesaj</a>
+        {{else}}
+        <a class="nav-link" href="/direct">Mesaj</a>
+        {{/if}}
+      </li>
+
+      <li class="nav-item">
+        {{#if activeAddwrite}}
+        <a class="nav-link active" href="/addwrite">Add Write</a>
+        {{else}}
+        <a class="nav-link" href="/addwrite">Add Write</a>
+        {{/if}}
+      </li>
+      
+      <li class="nav-item">
+         <a class="nav-link" href="/logout">Log out</a>
+      </li>
+  
+    {{else}}
+    <li class="nav-item">
+      {{#if activeLogin}}
+      <a class="nav-link active" href="/login/username">Login</a>
+      {{else}}
+      <a class="nav-link" href="/login/username">Login</a>
+      {{/if}}
+    </li>
+    <li class="nav-item">
+      {{#if activeRegister}}
+      <a class="nav-link active" href="/register">Register</a>
+      {{else}}
+      <a class="nav-link" href="/register">Register</a>
+      {{/if}}
+    </li>
+    {{/if}}
+       </ul><br>
+       
+        <form class="d-flex" method="GET" action="/search/" role="search">
+        <input class="form-control me-2" name="q" type="search" placeholder="Kullanıcı ara" aria-label="Search">
+        <button class="btn btn-outline-secondary" id="buttonBlock" type="submit">Ara</button>
+      </form>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+
+    <span class="navbar-text">
+      {{#if user}}
+      <a href="/{{user}}"><b>{{user}}</b></a>
+      {{/if}}
+    </span>
+  </div>
+</nav>
+

@@ -1,0 +1,75 @@
+<div class="container " style="margin-top:20px">
+    <div class="card" style="background-color: white;">
+        <div class="card-header">Profil</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    {{#if otherUser_image}}
+                    <img src="/user-images/{{otherUsername}}/{{otherUser_image}}" width=60 height=60 class="rounded float-start" alt="..."> &nbsp; @{{otherUsername}}
+                    {{else}}
+                    <img src="/images/user.png" width=60 height=60  class="rounded float-start" alt="..."> &nbsp; @{{otherUsername}}
+                    {{/if}}
+                </div>
+            </div>
+            {{#if user}}
+            <div class="row" style="margin-top:40px;text-align:center">
+                <div class="col-md-12">
+                    <hr>
+                    <input type="hidden" id="otherUsernameHiddenInput" value="{{otherUsername}}">
+                   <a type="button" href="/direct/t/{{otherUsername}}" class="btn btn-primary btn-sm">Mesaj gönder</a> 
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" style="margin-top:50px">
+        <div class="col-md-12">
+            <h3>Yazıları</h3>
+        </div>
+    </div>
+    <hr>
+    {{#each otherWrites}}
+    <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    @{{otherUsername}}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        {{otherMetin}}
+                    </blockquote>
+                </div> 
+                <input type="hidden" value={{otherPostid}}>
+                <div style="text-align:right;padding:5px">
+                    {{otherDate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="card">
+    <div class="card-body"><div class="row"><div class="col-md-12">
+        <p class="empty">Paylaştığı yazı yok</p>
+    </div></div></div>
+    </div>
+    {{/each}}
+
+
+     {{#if allpost}}
+    <div id="morepostlistele"></div>
+ 
+    <div class="row" style="margin-top:20px;text-align:center;margin-bottom:40px" id="buttonrow">
+        <div class="col-md-12">
+            <button type="button" id="addmore" class="btn btn-primary">Daha fazla göster 10/{{allpost}}</button>
+        </div>
+    </div>
+    {{/if}}
+
+
+</div>
+
+

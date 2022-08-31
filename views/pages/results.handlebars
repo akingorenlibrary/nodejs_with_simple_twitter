@@ -1,0 +1,30 @@
+    <div class="container" style="margin-top:20px">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header">Sonuçlar</div>
+                <div class="card-body">
+                    <a href="/{{query}}" style="color:black">
+                    <div id="card">
+                        {{#if durum}}
+                        <hr>
+                            {{#if otherUser_image}}
+                            <img src="/user-images/{{query}}/{{otherUser_image}}" width=60 height=60 class="rounded float-start" alt="..."> &nbsp; @{{query}}
+                            {{else}}
+                            <img src="/images/user.png" width=60 height=60  class="rounded float-start" alt="..."> &nbsp; @{{query}}
+                            {{/if}}
+                        <hr>
+                        {{else}}
+                            {{#if message}}
+                            {{message}}
+                            {{else}}
+                            <b>"{{query}}"</b> adında bir kullanıcı yok.
+                            {{/if}}
+                        {{/if}}     
+                    </div>      
+                    </a>      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
