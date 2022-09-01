@@ -59,16 +59,16 @@
       {{/if}}
     </li>
     {{/if}}
-       </ul><br>
+       </ul>
        
-        <form class="d-flex" method="GET" action="/search/" role="search">
+        <form class="d-flex" method="GET" action="/search/" role="search" style="margin-right:10px">
         <input class="form-control me-2" name="q" type="search" placeholder="Kullanıcı ara" aria-label="Search">
         <button class="btn btn-outline-secondary" id="buttonBlock" type="submit">Ara</button>
-      </form>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+      </form>
 
     <span class="navbar-text">
       {{#if user}}
-      <img src="/images/person.svg" alt="Bootstrap" ...>
+      <img src="/images/person.svg" alt="Bootstrap">
       <a href="/{{user}}"><b>{{user}}</b></a>
       {{/if}}
     </span>
