@@ -119,7 +119,7 @@ module.exports.postLoginPassword=(req,res)=>{
                                 }
                                 else
                                 {
-                                    console.log("req.body.benihatirla:(yok) ",req.body.benihatirla)
+                                   // console.log("req.body.benihatirla:(yok) ",req.body.benihatirla)
                                     res.cookie("jwt",token,{
                                         maxAge: 86400000, // 1 day
                                         httpOnly: true
