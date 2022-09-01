@@ -1,11 +1,13 @@
 const User=require("../models/user");
 
 module.exports.search=(req,res)=>{
-    if(req.query.q != "")
+    const username=req.query.q.toLowerCase();
+   
+    if(username != "")
     {
         var otherUser_image;
-        //console.log("query: ",req.query.q);
-        User.findOne({username:req.query.q})
+      
+        User.findOne({username:username})
         .then(response=>{
             if(response != null)
             {
@@ -14,7 +16,7 @@ module.exports.search=(req,res)=>{
                 }
                 res.render("pages/results",{
                     user:req.session["username"],
-                    query:req.query.q,
+                    query:username,
                     durum:true,
                     otherUser_image:otherUser_image
                    });
@@ -23,7 +25,7 @@ module.exports.search=(req,res)=>{
             {
                 res.render("pages/results",{
                      user:req.session["username"],
-                     query:req.query.q,
+                     query:username,
                      durum:false
                     });
             }
@@ -37,7 +39,7 @@ module.exports.search=(req,res)=>{
     {
         res.render("pages/results",{
             user:req.session["username"],
-            query:req.query.q,
+            query:username,
             message:"Boş bırakmayın"
            });
     }

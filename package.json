@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
-    "@mailchimp/mailchimp_marketing": "^3.0.78",
     "@sendgrid/mail": "^7.7.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",

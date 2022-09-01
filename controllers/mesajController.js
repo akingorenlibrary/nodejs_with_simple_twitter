@@ -171,19 +171,21 @@ module.exports.getNewDirectSearch = (req, res) => {
     const {
         user
     } = req.body;
+    const getUser=user.toLowerCase();
+  
     let otherUser_image;
 
-    if (user == req.session["username"]) {
+    if (getUser == req.session["username"]) {
         res.json({
             message: "Kendi kendinizi arayamazsınız"
         });
-    } else if (user == "") {
+    } else if (getUser == "") {
         res.json({
             message: "Boş bırakmayın"
         });
     } else {
         User.findOne({
-            username: user
+            username: getUser
         }, (err, dbuser) => {
             if (dbuser) {
                 if (dbuser.user_image != "notimage") {
