@@ -19,7 +19,7 @@ const multer  = require('multer');
 const { engine }=require("express-handlebars");
 const userRouter=require("./routes/users");
 const socket=require("socket.io");
-const server=app.listen(3000);
+const server=app.listen(process.env.PORT || 3000);
 const io=socket(server);
 
 

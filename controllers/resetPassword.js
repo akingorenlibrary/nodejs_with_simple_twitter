@@ -39,7 +39,7 @@ if(email != "")
                        html: `
                        <h2>Parola sıfırlama linki</h2>
                        
-                       Parola sıfırlamak için <a href="http://localhost:3000/reset-password/${random}">tıklanıyınız</a>
+                       Parola sıfırlamak için <a href="https://twitterakin.herokuapp.com/reset-password/${random}">tıklanıyınız</a>
                         `
                      }
                     sgMail.send(msg)
@@ -185,7 +185,7 @@ User.findOne({username:req.session["username"]},(err,user)=>{
                     html: `
                     <h2>Parola sıfırlama linki</h2>
                     
-                    Parola sıfırlamak için <a href="http://localhost:3000/${user.username}/reset-password/${random}">tıklanıyınız</a>
+                    Parola sıfırlamak için <a href="https://twitterakin.herokuapp.com/${user.username}/reset-password/${random}">tıklanıyınız</a>
                      `
                   }
                  sgMail.send(msg)
