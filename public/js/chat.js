@@ -1,4 +1,4 @@
-const socket=io.connect("https://twitterakin.herokuapp.com/");
+const socket=io.connect("http://localhost:3000/");
 const output=document.querySelector("#output");
 const feedback=document.querySelector("#feedback");
 const message=document.querySelector("#message");

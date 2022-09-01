@@ -3,12 +3,10 @@ const sgMail = require('@sendgrid/mail')
 const randomBytes = require('randombytes');
 const formValidationFile=require("../validation/formValidation");
 const bcrypt = require("bcryptjs");
-const url=require("url");
 
 sgMail.setApiKey("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");
 
 module.exports.resetpassword=(req,res)=>{
-    console.log(req.url)
     return res.render("pages/resetpassword",{ title:"Reset Password"});
 }
 
@@ -41,7 +39,7 @@ if(email != "")
                        html: `
                        <h2>Parola sıfırlama linki</h2>
                        
-                       Parola sıfırlamak için <a href="https://twitterakin.herokuapp.com/reset-password/${random}">tıklanıyınız</a>
+                       Parola sıfırlamak için <a href="http://localhost:3000/reset-password/${random}">tıklanıyınız</a>
                         `
                      }
                     sgMail.send(msg)
@@ -187,7 +185,7 @@ User.findOne({username:req.session["username"]},(err,user)=>{
                     html: `
                     <h2>Parola sıfırlama linki</h2>
                     
-                    Parola sıfırlamak için <a href="https://twitterakin.herokuapp.com/${user.username}/reset-password/${random}">tıklanıyınız</a>
+                    Parola sıfırlamak için <a href="http://localhost:3000/${user.username}/reset-password/${random}">tıklanıyınız</a>
                      `
                   }
                  sgMail.send(msg)
