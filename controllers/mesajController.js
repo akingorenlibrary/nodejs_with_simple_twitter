@@ -3,7 +3,7 @@ const User = require("../models/user");
 //const randomBytes = require('randombytes');
 
 module.exports.getDirect = (req, res) => {
-
+console.log(req.session["username"]);
     let temp = []; //önce tüm mesajlardaki alıcıları bu diziye ekliyorum 
     let temp2 = []; //sonra her alıyıcıdan bir tane olsun örneğin 2 tane secret, secret olmasın diye bu dize ekliyorum ayıklayıp
     let temp3 = []; //ayıklanan kullanıcıların sadece kullanıcı adlarını değil daha detayları bilgilerini almak için ayarlar yapıp bu diiye ekliyoruz

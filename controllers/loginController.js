@@ -108,7 +108,7 @@ module.exports.postLoginPassword=(req,res)=>{
                                 const token=jwt.sign({ foo: 'bar' }, 'secretosho');
                                 if(req.body.benihatirla)
                                 {
-                                    console.log("req.body.benihatirla(var):",req.body.benihatirla)
+                                    //console.log("req.body.benihatirla(var):",req.body.benihatirla)
                                     res.cookie("jwt",token,{
                                         maxAge: 604800000, // 1 week
                                         httpOnly: true
@@ -124,7 +124,7 @@ module.exports.postLoginPassword=(req,res)=>{
                                         maxAge: 86400000, // 1 day
                                         httpOnly: true
                                         });
-                                    console.log("req.session.cookie: ",req.session.cookie);
+                                    //console.log("req.session.cookie: ",req.session.cookie);
                                     req.session.cookie.maxAge =86400000; // 1 day
                                     req.flash("flashSuccess", "Şİfre Doğru");
                                     return res.redirect("/");
