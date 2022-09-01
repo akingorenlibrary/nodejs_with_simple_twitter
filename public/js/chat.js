@@ -1,4 +1,4 @@
-const socket=io.connect("https://twitterakin.herokuapp.com/");
+const socket=io.connect(window.location.origin);
 const output=document.querySelector("#output");
 const feedback=document.querySelector("#feedback");
 const message=document.querySelector("#message");
@@ -6,7 +6,6 @@ const gonderbtn=document.querySelector("#gonderbtn");
 const user=document.querySelector("#user");
 const receiver=document.querySelector("#receiver");
 const chatWindow=document.querySelector("#chat-window");
-
 
 scroll();
 message.addEventListener("keypress",(e)=>
