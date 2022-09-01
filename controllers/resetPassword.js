@@ -12,9 +12,9 @@ module.exports.resetpassword=(req,res)=>{
 
 module.exports.resetpasswordemail=(req,res)=>{ 
 const {email}=req.body;
+
 if(email != "")
 {
-    
     User.findOne({email:email})
     .then(user=>{
        if(!user)
@@ -24,10 +24,12 @@ if(email != "")
        }
        if(user)
        {
+        
            let random;
            randomBytes(16, function (err, resp) {
                random=resp.toString("hex");
-               console.log(email,random);
+               console.log(email,random,user.username);
+               console.log(`${req.protocol}://${req.get("host")}/reset-password/${random}`);
                user.reset_token=random;
                user.reset_token_expiration=Date.now()+3600000; //3 600 000 ms => 1 hours
                user.save()
@@ -39,7 +41,7 @@ if(email != "")
                        html: `
                        <h2>Parola sıfırlama linki</h2>
                        
-                       Parola sıfırlamak için <a href="${req.protocol}"://"${req.get("host")}/reset-password/${random}">tıklanıyınız</a>
+                       Parola sıfırlamak için <a href="${req.protocol}://${req.get("host")}/reset-password/${random}">tıklanıyınız</a>
                         `
                      }
                     sgMail.send(msg)
@@ -185,7 +187,7 @@ User.findOne({username:req.session["username"]},(err,user)=>{
                     html: `
                     <h2>Parola sıfırlama linki</h2>
                     
-                    Parola sıfırlamak için <a href="${req.protocol}"://"${req.get("host")}/reset-password/${random}">tıklanıyınız</a>
+                    Parola sıfırlamak için <a href="${req.protocol}://${req.get("host")}/reset-password/${random}">tıklanıyınız</a>
                      `
                   }
                  sgMail.send(msg)

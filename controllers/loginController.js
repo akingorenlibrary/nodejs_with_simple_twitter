@@ -17,13 +17,13 @@ module.exports.getLoginUsername = (req, res) => {
 
 
 module.exports.postLoginUsername=(req,res)=>{
-   
-    if(req.body.username!="")
+    const getUsername=req.body.username.toLowerCase();
+    if(getUsername!="")
     {
-        User.findOne({username:req.body.username},(err,user)=>{
+        User.findOne({username:getUsername},(err,user)=>{
             if(user)
             {
-                req.session.oturum=req.body.username;
+                req.session.oturum=getUsername;
                 req.session.save(err=>{
                     if(err)
                     {

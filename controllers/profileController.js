@@ -581,7 +581,7 @@ module.exports.imageRemove = (req, res) => {
 
 
 module.exports.getemailchange=(req,res)=>{
-    res.render("pages/emailChange",{title:"Email Change",user:req.session["username"],activeProfile:true});
+    return res.render("pages/emailChange",{title:"Email Change",user:req.session["username"],activeProfile:true});
 }
 
 module.exports.postemailchange=(req,res)=>{
@@ -590,52 +590,67 @@ module.exports.postemailchange=(req,res)=>{
     if(kontrol.length>0)
     {
         req.flash("flashError",kontrol);
-        res.redirect(`/${req.session["username"]}/email-change`);
+        return res.redirect(`/${req.session["username"]}/email-change`);
     }
     else
     {
-        User.findOne({username:req.session["username"]},(err,user)=>{
-            if(user)
-            {
-                bcrypt.compare(mevcutSifre,user.password,(err,result)=>{
-                    if(result)
-                    {
-                        user.email=yeniEmail;
-                        user.save()
-                        .then(response=>{
-                            req.flash("flashSuccess","Email değiştirildi");
-                            res.redirect(`/${req.session["username"]}`);
-                        })
-                        .catch(err=>{
+       User.findOne({email:yeniEmail},(err,user)=>{
+        if(user)
+        {
+            req.flash("flashError","Bu email başka bir hesaba kayıtlı.");
+            return res.redirect(`/${req.session["username"]}/email-change`);
+        }
+        else if(err)
+        {
+            req.flash("flashError","Hata oluştu.");
+            return res.redirect(`/${req.session["username"]}/email-change`);
+        }
+        else
+        {
+            User.findOne({username:req.session["username"]},(err,user)=>{
+                if(user)
+                {
+                    bcrypt.compare(mevcutSifre,user.password,(err,result)=>{
+                        if(result)
+                        {
+                            user.email=yeniEmail;
+                            user.save()
+                            .then(response=>{
+                                req.flash("flashSuccess","Email değiştirildi");
+                                return res.redirect(`/${req.session["username"]}`);
+                            })
+                            .catch(err=>{
+                                console.log(err)
+                                req.flash("flashError","Hata oluştu");
+                                return res.redirect(`/${req.session["username"]}/email-change`);
+                            });
+                        }
+                        else if(err)
+                        {
                             console.log(err)
                             req.flash("flashError","Hata oluştu");
-                            res.redirect(`/${req.session["username"]}/email-change`);
-                        });
-                    }
-                    else if(err)
-                    {
-                        console.log(err)
-                        req.flash("flashError","Hata oluştu");
-                        res.redirect(`/${req.session["username"]}/email-change`);
-                    }
-                    else
-                    {
-                        req.flash("flashError","Mevcut şifreyi yanlış girdiniz");
-                        res.redirect(`/${req.session["username"]}/email-change`);
-                    }
-                })
-            }
-            else if(err)
-            {
-                console.log(err)
-                req.flash("flashError","Hata oluştu");
-                res.redirect(`/${req.session["username"]}/email-change`);
-            }
-            else
-            {
-                req.flash("flashError","Hata oluştu");
-                res.redirect(`/${req.session["username"]}/email-change`);
-            }
-        })
+                            return res.redirect(`/${req.session["username"]}/email-change`);
+                        }
+                        else
+                        {
+                            req.flash("flashError","Mevcut şifreyi yanlış girdiniz");
+                            return res.redirect(`/${req.session["username"]}/email-change`);
+                        }
+                    })
+                }
+                else if(err)
+                {
+                    console.log(err)
+                    req.flash("flashError","Hata oluştu");
+                    return res.redirect(`/${req.session["username"]}/email-change`);
+                }
+                else
+                {
+                    req.flash("flashError","Hata oluştu");
+                    return res.redirect(`/${req.session["username"]}/email-change`);
+                }
+            })
+        }
+       })
     }
 }
