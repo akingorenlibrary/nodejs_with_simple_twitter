@@ -1,13 +1,43 @@
 
 module.exports.formValidation=(username,email,password)=>{
     const error=[];
+    let regexUsername=/[^\w.]/g;//[A-Za-z0-9_.] dışındakileri kabul etmez kontolü
+    let regexUsername2=/[A-Z]/g;//büyük harf kontrolü
+    let regexPassword=/\s/g;//boşluk kontrolü
+    let regexEmail = /(?<e1>.*)(?=@)@(?<e2>.*)/;
+    let regexEmail2=/[^\w.]/g;
+    let match = email.match(regexEmail);
+    console.log("match: ",match)
     try
-    {
-        if(username=="" || email=="" || password=="" )
-        throw "Kullanıcı adı veya şifre boş bırakılamaz";
+    {    
         
+        if(regexUsername.test(username))
+        throw "Username türkçe veya özel karakter içermemelidir.";
+
+        if(regexUsername2.test(username))
+        throw "Username büyük harf içermemelidir.";
+
+        if(regexPassword.test(password))
+        throw "Password boşluk içermemelidir."
+
         if(password.length<6)
-        throw "Şifre 6 karekterden uzun olmalıdır";
+        throw "Şifre 6 karekterden uzun olmalıdır.";
+
+        if(password.length>50)
+        throw "Şifre 50 karakterden uzun olamaz.";
+
+        if(email.length>50)
+        throw "Email 50 karakterden uzun olamaz.";
+
+        if(username.length>20)
+        throw "Username 20 karakterden fazla olamaz.";
+
+        if(match==null)
+        throw "Hatalı email girişi.";
+
+        if(regexEmail2.test(match[1]))
+        throw "@'dan önceki kısımda özel karakter kullanmayınız.";
+        
     }
     catch(hata)
     {
@@ -20,9 +50,16 @@ module.exports.formValidation=(username,email,password)=>{
 
 module.exports.addWriteFormControl=(metin)=>{
     const error=[];
-    if(metin=="")
+    try{
+        if(metin=="")
+        throw "Boş bırakmayın.";
+        
+        if(metin.length >200)
+        throw "Maksimum 200 karakter girebilirsiniz.";
+    }
+    catch(errorMessage)
     {
-        error.push("Boş bırakmayın");
+        error.push(errorMessage);
     }
     return error;
 };

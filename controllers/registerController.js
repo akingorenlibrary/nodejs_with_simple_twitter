@@ -19,7 +19,8 @@ module.exports.getRegister = (req, res) => {
     */
     res.render("pages/register", {
         activeRegister: true,
-        title: "Register"
+        title: "Register",
+        registerPage:true
     });
 }
 
@@ -32,31 +33,33 @@ module.exports.postRegister = (req, res) => {
         email,
         password
     } = req.body;
-    const getUsername = username.toLowerCase();
-    const kontrol = formValidationFile.formValidation(getUsername, email, password);
+    const kontrol = formValidationFile.formValidation(username, email, password);
     if (kontrol.length > 0) {
-        console.log(kontrol);
         return res.render("pages/register", {
             errormessage: kontrol,
-            username: getUsername,
+            username: username,
             email: email,
             password: password,
-            activeRegister: true
+            activeRegister: true,
+            title:"Register",
+            registerPage:true
         });
     } else {
         //username sorgulama işlemi
         User.findOne({
-                username: getUsername
+                username: username
             })
             .then(result => {
                 if (result != null) {
                     errors.push("Daha önce seçilmeyen bir kullanıcı adı seçiniz");
                     return res.render("pages/register", {
                         errormessage: errors,
-                        username: getUsername,
+                        username: username,
                         email: email,
                         password: password,
-                        activeRegister: true
+                        activeRegister: true,
+                        title:"Register",
+                        registerPage:true
                     });
                 }
                 if (result == null) {
@@ -80,12 +83,14 @@ module.exports.postRegister = (req, res) => {
                                         errors.push("şifreleme hatası");
                                         return res.render("pages/register", {
                                             errormessage: errors,
-                                            activeRegister: true
+                                            activeRegister: true,
+                                            registerPage:true,
+                                            title:"Register"
                                         });
                                     } else {
                                         //ekleme işlemi
                                         const add = new User({
-                                            username: getUsername,
+                                            username: username,
                                             email: email,
                                             password: hash,
                                             user_image: "notimage"
@@ -101,7 +106,9 @@ module.exports.postRegister = (req, res) => {
                                                 errors.push("Üye eklenirken hata oluştu");
                                                 return res.render("pages/register", {
                                                     errormessage: errors,
-                                                    activeRegister: true
+                                                    activeRegister: true,
+                                                    registerPage:true,
+                                                    title:"Register"
                                                 });
                                             });
 

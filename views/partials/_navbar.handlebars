@@ -25,9 +25,9 @@
 
        <li class="nav-item">
         {{#if activeMesaj}}
-        <a class="nav-link active" href="/direct">Mesaj</a>
+        <a class="nav-link active" href="/direct">Message</a>
         {{else}}
-        <a class="nav-link" href="/direct">Mesaj</a>
+        <a class="nav-link" href="/direct">Message</a>
         {{/if}}
       </li>
 
@@ -60,18 +60,17 @@
     </li>
     {{/if}}
        </ul>
-       
-        <form class="d-flex" method="GET" action="/search/" role="search" style="margin-right:10px">
-        <input class="form-control me-2" name="q" type="search" placeholder="Kullanıcı ara" aria-label="Search">
-        <button class="btn btn-outline-secondary" id="buttonBlock" type="submit">Ara</button>
-      </form>
-
-    <span class="navbar-text">
+         <span class="navbar-text">
       {{#if user}}
       <img src="/images/person.svg" alt="Bootstrap">
       <a href="/{{user}}"><b>{{user}}</b></a>
       {{/if}}
     </span>
+       <br><br>
+        <form class="d-flex" method="GET" action="/search/" role="search" style="margin-right:10px">
+        <input class="form-control me-2" name="q" type="search" placeholder="Kullanıcı ara" aria-label="Search">
+        <button class="btn btn-outline-secondary" id="buttonBlock" type="submit">Ara</button>
+      </form>
   </div>
 </nav>
 

@@ -1,9 +1,7 @@
 const Write = require("../models/writes");
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
-const {
-    addWriteFormControl
-} = require("../validation/formValidation");
+const {addWriteFormControl} = require("../validation/formValidation");
 
 module.exports.getaddwrite = (req, res) => {
     /*
@@ -42,7 +40,7 @@ module.exports.postaddwrite = (req, res) => {
             } = req.body;
     
             const kontrol = addWriteFormControl(metin);
-            console.log(kontrol);
+           // console.log(kontrol);
             if (!(kontrol.length > 0)) {
                 User.findOne({
                     username: req.session["username"]
@@ -65,8 +63,15 @@ module.exports.postaddwrite = (req, res) => {
                     }
                 })
             } else {
-                req.flash("flashError", `${kontrol}`);
-                return res.redirect("/addwrite");
+                res.render("pages/addwrite", {
+                    user: req.session["username"],
+                    activeAddwrite: true,
+                    title: "Add Write",
+                    addwritePage:true,
+                    buttonBlock:true,
+                    metin:metin,
+                    errormessage:kontrol
+                });
             }
         
         

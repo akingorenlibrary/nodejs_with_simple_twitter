@@ -10,7 +10,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    @{{username}}
+                    {{#if user_image}}
+                    <img src="/user-images/{{user}}/{{user_image}}" width=30 height=30 class="rounded float-start" alt="...">&nbsp;|
+                    {{else}}
+                    <img src="/images/user.png" width=30 height=30  class="rounded float-start" alt="...">&nbsp;|
+                    {{/if}}
+                   <a style="color:black" href="/{{username}}">@{{username}}</a>
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">

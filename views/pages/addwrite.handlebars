@@ -1,3 +1,7 @@
+<div class="container">
+     {{> _errors}}
+</div>
+
 <div class="container" style="margin-top:20px">
     <div class="card">
         <div class="row">
@@ -7,10 +11,13 @@
                     <form action="/addwrite" method="POST">
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Metin</label>
-                            <textarea class="form-control" name="metin" id="editor" rows="3"></textarea>
+                            <textarea class="form-control" id="metin" name="metin" rows="3">{{metin}}</textarea>
+                            <p class="text-right" id="karakterSayaci">0/200</p>
                         </div>
                         <button type="submit" id="buttonBlock" class="btn btn-primary">Paylaş</button>
-                    </form>
+                    </form><br>
+                    <hr>
+                    <p>• Maksimum 200 karakter girilebilir.</p>
                 </div>
             </div>
         </div>
