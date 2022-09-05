@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">Twitter</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -65,12 +65,15 @@
       <img src="/images/person.svg" alt="Bootstrap">
       <a href="/{{user}}"><b>{{user}}</b></a>
       {{/if}}
-    </span>
-       <br><br>
-        <form class="d-flex" method="GET" action="/search/" role="search" style="margin-right:10px">
-        <input class="form-control me-2" name="q" type="search" placeholder="Kullanıcı ara" aria-label="Search">
-        <button class="btn btn-outline-secondary" id="buttonBlock" type="submit">Ara</button>
-      </form>
+    </span>&nbsp;
   </div>
 </nav>
-
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <form class="container-fluid" method="GET" action="/search/" role="search" style="margin-right:10px">
+      <div class="input-group">
+          <input class="form-control me-2" name="q" type="search" placeholder="Kullanıcı ara" aria-label="Search">
+          <button class="btn btn-outline-secondary" id="buttonBlock" type="submit">Ara</button>
+        </div>
+        </form>
+  </nav>
+ 
