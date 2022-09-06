@@ -64,7 +64,7 @@ module.exports.postLoginUsername=(req,res)=>{
 module.exports.getLoginPassword=(req,res)=>{
     if(req.session.oturum)
     {
-        return res.render("pages/loginpassword",{title:"Login",activeLogin: true,passwordPage:true});
+        return res.render("pages/loginpassword",{title:"Login",activeLogin: true,passwordOpenClose:true});
     }
     else
     {

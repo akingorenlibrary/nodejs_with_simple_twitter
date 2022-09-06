@@ -7,10 +7,12 @@ module.exports.formValidation=(username,email,password)=>{
     let regexEmail = /(?<e1>.*)(?=@)@(?<e2>.*)/;
     let regexEmail2=/[^\w.]/g;
     let match = email.match(regexEmail);
-    console.log("match: ",match)
+    //console.log("match: ",match)
     try
     {    
-        
+        if(username=="" || password == "" || email=="")
+        throw "Boş bırakmayın.";
+
         if(regexUsername.test(username))
         throw "Username türkçe veya özel karakter içermemelidir.";
 

@@ -141,7 +141,8 @@ module.exports.getprofilechangepassword = (req, res) => {
     res.render("pages/passwordchange", {
         user: req.session["username"],
         title: "Password Change",
-        activeProfile: true
+        activeProfile: true,
+        passwordOpenClose:true
     })
 
 }
@@ -266,7 +267,8 @@ module.exports.postprofilechangepassword = (req, res) => {
             errormessage: kontrol,
             user: req.session["username"],
             title: "Password Change",
-            activeProfile: true
+            activeProfile: true,
+            passwordOpenClose:true
         });
     } else {
         User.findOne({
@@ -581,7 +583,7 @@ module.exports.imageRemove = (req, res) => {
 
 
 module.exports.getemailchange=(req,res)=>{
-    return res.render("pages/emailChange",{title:"Email Change",user:req.session["username"],activeProfile:true});
+    return res.render("pages/emailChange",{title:"Email Change",user:req.session["username"],activeProfile:true,passwordOpenClose:true});
 }
 
 module.exports.postemailchange=(req,res)=>{

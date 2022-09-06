@@ -20,7 +20,7 @@ module.exports.getRegister = (req, res) => {
     res.render("pages/register", {
         activeRegister: true,
         title: "Register",
-        registerPage:true
+        passwordOpenClose:true
     });
 }
 
@@ -42,7 +42,7 @@ module.exports.postRegister = (req, res) => {
             password: password,
             activeRegister: true,
             title:"Register",
-            registerPage:true
+            passwordOpenClose:true
         });
     } else {
         //username sorgulama işlemi
@@ -59,7 +59,7 @@ module.exports.postRegister = (req, res) => {
                         password: password,
                         activeRegister: true,
                         title:"Register",
-                        registerPage:true
+                        passwordOpenClose:true
                     });
                 }
                 if (result == null) {
@@ -84,7 +84,7 @@ module.exports.postRegister = (req, res) => {
                                         return res.render("pages/register", {
                                             errormessage: errors,
                                             activeRegister: true,
-                                            registerPage:true,
+                                            passwordOpenClose:true,
                                             title:"Register"
                                         });
                                     } else {
@@ -107,7 +107,7 @@ module.exports.postRegister = (req, res) => {
                                                 return res.render("pages/register", {
                                                     errormessage: errors,
                                                     activeRegister: true,
-                                                    registerPage:true,
+                                                    passwordOpenClose:true,
                                                     title:"Register"
                                                 });
                                             });

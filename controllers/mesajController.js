@@ -175,33 +175,50 @@ module.exports.getNewDirectSearch = (req, res) => {
   
     let otherUser_image;
 
-    if (getUser == req.session["username"]) {
+    if (getUser == req.session["username"]) 
+    {
         res.json({
-            message: "Kendi kendinizi arayamazsınız"
+            message: "Kendi kendinizi arayamazsınız."
         });
-    } else if (getUser == "") {
+    } 
+    if (getUser == "")
+    {
         res.json({
-            message: "Boş bırakmayın"
+            message: "Boş bırakmayın."
         });
-    } else {
+    } 
+    if (getUser.length > 20)
+    {
+        res.json({
+            message: "Kullanıcı adı 20 karakterden büyük olamaz."
+        });
+    } 
+    else 
+    {
         User.findOne({
             username: getUser
         }, (err, dbuser) => {
-            if (dbuser) {
-                if (dbuser.user_image != "notimage") {
+            if (dbuser) 
+            {
+                if (dbuser.user_image != "notimage") 
+                {
                     otherUser_image = dbuser.user_image;
                 }
                 res.json({
                     otherUsername: dbuser.username,
                     otherUser_image: otherUser_image
                 });
-            } else if (err) {
+            }
+            else if (err) 
+            {
                 res.json({
-                    message: "Hata oluştu"
+                    message: "Hata oluştu."
                 });
-            } else {
+            } 
+            else 
+            {
                 res.json({
-                    message: "kullanıcı bulunamadı"
+                    message: "kullanıcı bulunamadı."
                 });
             }
         });

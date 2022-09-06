@@ -83,7 +83,7 @@ module.exports.getResetPasswordToken=(req,res)=>{
     User.findOne({reset_token:resettoken, reset_token_expiration:{$gt:Date.now()}},(err,user)=>{
         if(user)
         {
-            return res.render("pages/newPassword",{title:"New Password",token:resettoken});
+            return res.render("pages/newPassword",{title:"New Password",token:resettoken,passwordOpenClose:true});
         }
         else if(err)
         {
@@ -225,7 +225,7 @@ module.exports.getuserResetPassword=(req,res)=>{
     User.findOne({reset_token:resettoken, reset_token_expiration:{$gt:Date.now()}},(err,user)=>{
         if(user)
         {
-            return res.render("pages/newUserPassword",{user:req.session["username"],title:"New User Password",token:resettoken});
+            return res.render("pages/newUserPassword",{user:req.session["username"],title:"New User Password",token:resettoken,passwordOpenClose:true});
         }
         else if(err)
         {
