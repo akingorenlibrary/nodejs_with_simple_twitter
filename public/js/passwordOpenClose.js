@@ -1,7 +1,7 @@
 var sayi = 1;
 var sifre = document.querySelectorAll("#sifre");
 var inputsifre = document.getElementsByClassName("form-control password");
-
+console.log(sifre.length)
 for(let i=0;i<sifre.length;i++)
 {
     sifre[i].innerHTML = "";
