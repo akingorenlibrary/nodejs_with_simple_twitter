@@ -72,7 +72,7 @@ router.get('/favicon.ico', (req, res) => { res.render("pages/NotFound",{title:"N
 router.get("/:username/email-change",pageControlNotSession,jwtControl,usernameControl,profileControllerFile.getemailchange);
 router.post("/:username/email-change",pageControlNotSession,jwtControl,usernameControl,profileControllerFile.postemailchange);
 
-router.get("/:username/reset-password",pageControlNotSession,jwtControl,usernameControl,resetPasswordFile.userResetPassword);
+router.post("/:username/reset-password",pageControlNotSession,jwtControl,usernameControl,resetPasswordFile.userResetPassword);
 router.get("/:username/reset-password/:resettoken",pageControlNotSession,jwtControl,usernameControl,resetPasswordFile.getuserResetPassword);
 router.post("/:username/reset-password/:resettoken",pageControlNotSession,jwtControl,usernameControl,resetPasswordFile.postuserResetPassword);
 

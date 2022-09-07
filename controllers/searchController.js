@@ -20,6 +20,7 @@ module.exports.search=(req,res)=>{
                         user:req.session["username"],
                         query:username,
                         durum:true,
+                        title:"Search",
                         otherUser_image:otherUser_image
                     });
                 }
@@ -28,6 +29,7 @@ module.exports.search=(req,res)=>{
                     res.render("pages/results",{
                         user:req.session["username"],
                         query:username,
+                        title:"Search",
                         durum:false
                         });
                 }
@@ -42,6 +44,7 @@ module.exports.search=(req,res)=>{
             res.render("pages/results",{
                 user:req.session["username"],
                 query:username,
+                title:"Search",
                 message:"Kullanıcı adı 20 karakterden fazla olamaz."
                });
         }
@@ -51,6 +54,7 @@ module.exports.search=(req,res)=>{
         res.render("pages/results",{
             user:req.session["username"],
             query:username,
+            title:"Search",
             message:"Boş bırakmayın."
            });
     }

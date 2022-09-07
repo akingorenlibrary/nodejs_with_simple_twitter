@@ -60,12 +60,12 @@
     </li>
     {{/if}}
        </ul>
+        {{#if user}}
          <span class="navbar-text">
-      {{#if user}}
-      <img src="/images/person.svg" alt="Bootstrap">
+       <img src="/images/person.svg" alt="Bootstrap">
       <a href="/{{user}}"><b>{{user}}</b></a>
-      {{/if}}
-    </span>&nbsp;
+       </span>&nbsp;
+        {{/if}}
   </div>
 </nav>
  <nav class="navbar navbar-expand-lg navbar-light bg-light">

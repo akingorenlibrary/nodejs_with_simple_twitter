@@ -1,11 +1,10 @@
 const Write = require("../models/writes");
-const controlProfilePasswordChangeFile = require("../validation/profile-password-change");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const path = require("path");
 const Direct=require("../models/direct");
-const { formValidation,emailChangeFromValidation } = require("../validation/formValidation");
+const { formValidation,emailChangeFromValidation,controlProfilePasswordChange,postMembershipDeleteRecaptchaValidation } = require("../validation/formValidation");
 
 
 module.exports.profile = (req, res) => {
@@ -259,7 +258,7 @@ module.exports.postprofilechangepassword = (req, res) => {
         yeniSifre1,
         yeniSifre2
     } = req.body;
-    const kontrol = controlProfilePasswordChangeFile.controlProfilePasswordChange(mevcutSifre, yeniSifre1, yeniSifre2);
+    const kontrol = controlProfilePasswordChange(mevcutSifre, yeniSifre1, yeniSifre2);
     console.log("kontrol: ",kontrol);
     if (kontrol.length > 0) {
         //hata var
@@ -317,34 +316,42 @@ module.exports.getmembershipDelete = (req, res) => {
 }
 
 module.exports.postmembershipDelete = (req, res) => {
-
+const recaptchaResponse=req.body["g-recaptcha-response"];
+const kontrol=postMembershipDeleteRecaptchaValidation(recaptchaResponse);
+if(!(kontrol.length>0))
+{
     User.deleteOne({
-            username: req.session["username"]
-        })
-        .then(result => {
-            Write.deleteMany({
-                    username: req.session["username"]
-                })
-                .then(response => {
-                    async function bekle() {
-                        req.flash("flashSuccess", "Üyeliniz Silindi");
-                        await delete req.session["username"];
-                    }
-                    bekle();
-                    return res.redirect("/login/username");
-                })
-                .catch(err => {
-                    req.flash("flashSuccess", "Üyeliniz Silinirken Hata Oluştu");
-                    res.redirect(`/${req.session["username"]}`);
-                });
-        })
-        .catch(err => {
-            req.flash("flashSuccess", "Üyeliniz Silinirken Hata Oluştu");
-            res.redirect(`/${req.session["username"]}`);
-        });
+        username: req.session["username"]
+    })
+    .then(result => {
+        Write.deleteMany({
+                username: req.session["username"]
+            })
+            .then(response => {
+                async function bekle() {
+                    req.flash("flashSuccess", "Üyeliniz Silindi");
+                    await delete req.session["username"];
+                }
+                bekle();
+                return res.redirect("/login/username");
+            })
+            .catch(err => {
+                req.flash("flashSuccess", "Üyeliniz Silinirken Hata Oluştu");
+                res.redirect(`/${req.session["username"]}`);
+            });
+    })
+    .catch(err => {
+        req.flash("flashSuccess", "Üyeliniz Silinirken Hata Oluştu");
+        res.redirect(`/${req.session["username"]}`);
+    });
 
-
-
+}
+else
+{
+    req.flash("flashError", kontrol);
+    res.redirect(`/${req.session["username"]}/membership-delete`);
+}
+   
 }
 
 

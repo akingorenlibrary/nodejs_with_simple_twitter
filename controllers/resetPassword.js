@@ -11,9 +11,13 @@ module.exports.resetpassword=(req,res)=>{
 }
 
 module.exports.resetpasswordemail=(req,res)=>{ 
+    
+const recaptchaResponse=req.body["g-recaptcha-response"];
 const {email}=req.body;
 
-if(email != "")
+const kontrol=formValidationFile.resetPasswordEmailValidation(email,recaptchaResponse);
+
+if(!(kontrol.length>0))
 {
     User.findOne({email:email})
     .then(user=>{
@@ -65,14 +69,14 @@ if(email != "")
        }
     })
     .catch(err=>{
-        console.log(err);
+        console.log(err); 
         req.flash("flashError","Hata oluştu");
         return res.redirect("/reset-password");
     });  
 }
 else
 {
-    req.flash("flashError","Boş bırakmayın");
+    req.flash("flashError",kontrol);
     return res.redirect("/reset-password");
 }
 }
@@ -169,52 +173,62 @@ module.exports.postResetPasswordToken=(req,res)=>{
 
 
 module.exports.userResetPassword=(req,res)=>{
-User.findOne({username:req.session["username"]},(err,user)=>{
-    if(user)
-    {
-        let email=user.email;
-        let random;
-        randomBytes(16, function (err, resp) {
-            random=resp.toString("hex");
-            user.reset_token=random;
-            user.reset_token_expiration=Date.now()+3600000; //3 600 000 ms => 1 hours
-            user.save()
-            .then(response=>{
-                const msg = {
-                    to: email, // Change to your recipient
-                    from: 'muhammetgoreniletisim@gmail.com', // Change to your verified sender
-                    subject: 'Reset Password',
-                    html: `
-                    <h2>Parola sıfırlama linki</h2>
-                    
-                    Parola sıfırlamak için <a href="${req.protocol}://${req.get("host")}/reset-password/${random}">tıklanıyınız</a>
-                     `
-                  }
-                 sgMail.send(msg)
-                 .then(result=>{
-                     req.flash("flashSuccess","Şifre sıfırlama linki mail adresinize gönderildi.");
-                     return res.redirect(`/${req.session["username"]}`);
-                     
-                 })
-                 .catch(err=>{
+const recaptchaResponse=req.body["g-recaptcha-response"];
+const kontrol=formValidationFile.userResetPasswordEmailValidation(recaptchaResponse);
+if(!(kontrol.length>0))
+{
+    User.findOne({username:req.session["username"]},(err,user)=>{
+        if(user)
+        {
+            let email=user.email;
+            let random;
+            randomBytes(16, function (err, resp) {
+                random=resp.toString("hex");
+                user.reset_token=random;
+                user.reset_token_expiration=Date.now()+3600000; //3 600 000 ms => 1 hours
+                user.save()
+                .then(response=>{
+                    const msg = {
+                        to: email, // Change to your recipient
+                        from: 'muhammetgoreniletisim@gmail.com', // Change to your verified sender
+                        subject: 'Reset Password',
+                        html: `
+                        <h2>Parola sıfırlama linki</h2>
+                        
+                        Parola sıfırlamak için <a href="${req.protocol}://${req.get("host")}/reset-password/${random}">tıklanıyınız</a>
+                         `
+                      }
+                     sgMail.send(msg)
+                     .then(result=>{
+                         req.flash("flashSuccess","Şifre sıfırlama linki mail adresinize gönderildi.");
+                         return res.redirect(`/${req.session["username"]}`);
+                         
+                     })
+                     .catch(err=>{
+                         console.log(err);
+                         req.flash("flashError","Hata oluştu");
+                         return res.redirect(`/${req.session["username"]}/password-change`);
+                     });
+                })
+                .catch(err=>{
                      console.log(err);
                      req.flash("flashError","Hata oluştu");
                      return res.redirect(`/${req.session["username"]}/password-change`);
-                 });
-            })
-            .catch(err=>{
-                 console.log(err);
-                 req.flash("flashError","Hata oluştu");
-                 return res.redirect(`/${req.session["username"]}/password-change`);
-            });
-           });
-    }
-    else
-    {
-        req.flash("flashError","Hata oluştu");
-        return res.redirect(`/${req.session["username"]}/password-change`);
-    }
-})
+                });
+               });
+        }
+        else
+        {
+            req.flash("flashError","Hata oluştu");
+            return res.redirect(`/${req.session["username"]}/password-change`);
+        }
+    })
+}
+else
+{
+    req.flash("flashError",kontrol);
+    return res.redirect(`/${req.session["username"]}/password-change`);
+}
 }
 
 

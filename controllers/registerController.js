@@ -1,6 +1,7 @@
 const formValidationFile = require("../validation/formValidation");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 module.exports.getRegister = (req, res) => {
     /*
@@ -27,13 +28,14 @@ module.exports.getRegister = (req, res) => {
 
 
 module.exports.postRegister = (req, res) => {
+    const recaptchaResponse=req.body["g-recaptcha-response"];
     const errors = [];
     const {
         username,
         email,
         password
     } = req.body;
-    const kontrol = formValidationFile.formValidation(username, email, password);
+    const kontrol = formValidationFile.formValidation(username, email, password, recaptchaResponse);
     if (kontrol.length > 0) {
         return res.render("pages/register", {
             errormessage: kontrol,
@@ -98,8 +100,32 @@ module.exports.postRegister = (req, res) => {
                                         add.save()
                                             .then(result => {
                                                 console.log("Üye Eklendi")
-                                                req.flash("flashSuccess", "Kayıt oldunuz, giriş yapın");
-                                                return res.redirect("/login/username");
+                                                //req.flash("flashSuccess", "Kayıt oldunuz, giriş yapın");
+                                                //return res.redirect("/login/username");
+                                                //kayıt başarılı
+                                                {
+                                                req.session.username = username;
+                                                req.session.save(err => {
+                                                    if (err) {
+                                                        console.log("session hatası: ", err);
+                                                        return res.redirect("/logout");
+                                                    }
+                                                });
+                                                const token = jwt.sign({
+                                                    foo: 'bar'
+                                                }, 'secretosho');
+                                               
+                                                // console.log("req.body.benihatirla:(yok) ",req.body.benihatirla)
+                                                res.cookie("jwt", token, {
+                                                    maxAge: 86400000, // 1 day
+                                                    httpOnly: true
+                                                });
+                                                //console.log("req.session.cookie: ",req.session.cookie);
+                                                req.session.cookie.maxAge = 86400000; // 1 day
+                                                //req.flash("flashSuccess", "Şİfre Doğru");
+                                                return res.redirect("/");
+                                                
+                                                }
                                             })
                                             .catch(err => {
                                                 console.log("Üye eklenirken hata oluştu")

@@ -8,10 +8,13 @@
                 <div class="col-md-12">
                     <form action="/{{user}}/membership-delete" method="POST">
                       <b>Üyeliğinizi silmek istediğinizden emin misiniz?</b>
-                        <br><br>
+                        <br>
+                         <div style="margin-top:20px" class="g-recaptcha" data-sitekey="6LfZMdohAAAAAKEWLgjUewZaxgG6cMsv1QRsZyna"></div>
+                        <br>
                        <button  type="submit" name="buttonBlock" class="btn btn-danger">Evet</button>
                         <a  role="button" href="/{{user}}" class="btn btn-primary">Hayır</a>
                     </form>
+                   
                 </div>
             </div>
         </div>
